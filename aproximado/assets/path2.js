@@ -25,7 +25,7 @@ module.exports = {
         //Condição de parada para sabermos que o contorno está completo: todos os nodos de ambos mst reveso estão
         //no caminho
         //while(path.length < pathSize) {
-        for(var i = 0; i < 5; i++) {
+        for(var i = 0; i < 7; i++) {
             //Pega todos os vizinhos do nodo atual
             neighbors = findNeighbors(mst, currentNode)
             //verifica se os nodos já presentes dentro do caminho tem alguma ligação prévia com o atual
@@ -33,7 +33,7 @@ module.exports = {
             console.log(neighbors)
             var nonVisited = neighbors.filter(element => {
                 //return !pathNodes.includes(element.destination)
-                return isPath(pathNodes, element)
+                return !isPath(pathNodes, element)
             })
             //Verifica se existem vizinhos não visitados pelo nodo atual
             console.log("===NONVISITED===")
