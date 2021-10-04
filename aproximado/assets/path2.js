@@ -25,25 +25,49 @@ module.exports = {
         //Condição de parada para sabermos que o contorno está completo: todos os nodos de ambos mst reveso estão
         //no caminho
         //while(path.length < pathSize) {
-        for(var i = 0; i < 3; i++) {
+        for(var i = 0; i < 5; i++) {
             //Pega todos os vizinhos do nodo atual
             neighbors = findNeighbors(mst, currentNode)
             //verifica se os nodos já presentes dentro do caminho tem alguma ligação prévia com o atual
+            console.log("===NEIGHBORS===")
+            console.log(neighbors)
             var nonVisited = neighbors.filter(element => {
-                return !pathNodes.includes(element.destination)
+                //return !pathNodes.includes(element.destination)
+                return isPath(pathNodes, element)
             })
             //Verifica se existem vizinhos não visitados pelo nodo atual
-            if(nonVisited) {
+            console.log("===NONVISITED===")
+            console.log(nonVisited)
+            if(nonVisited.length > 0) {
                 //Como existem, escolhe um deles para ser aquele que virará o atual
                 currentNode = nonVisited[0].destination
+                console.log("===CURRENT NODE===")
+                console.log(currentNode)
                 //e coloca esse atual no caminho do contorno
                 pathNodes.push(currentNode)
+                //faz um contorno de objetos também
+                path.push(nonVisited[0]);
+                console.log("===PATH===")
+                console.log(path)
+                console.log("===PATHNODES===")
                 console.log(pathNodes)
                 //Como existe um caminho inteiro agora
             }
-            //else
+            else{
+                pathNodes.push(neighbors[0].destination)
+                path.push({
+                    source: neighbors[0].destination,
+                    destination:neighbors[0].source,
+                    weight:neighbors[0].weight
+                })
+                console.log("===PATH===")
+                console.log(path)
+                console.log("===PATHNODES===")
+                console.log(pathNodes)
+            }
+            console.log("\n===NOVO PASSO===\n")
         }
-        console.log(path)
+
             
     }
 }
